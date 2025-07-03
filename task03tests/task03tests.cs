@@ -1,6 +1,5 @@
 using Xunit;
 using task03;
-using Moq;
 using System.Security.Cryptography.X509Certificates;
 
 namespace task03tests;
