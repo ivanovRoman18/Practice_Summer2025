@@ -25,7 +25,7 @@ public class CustomCollection<T> : IEnumerable<T>
         }
 
     }
-    public IEnumerable FilterAndSort(Func<T, bool> predicate, Func<T, IComparable> keySelector)
+    public IEnumerable<T> FilterAndSort(Func<T, bool> predicate, Func<T, IComparable> keySelector)
         => _items.Where(predicate).OrderBy(keySelector);
     
 }
