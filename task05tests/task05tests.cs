@@ -51,7 +51,7 @@ public class ClassAnalyzerTests
 
         Assert.Contains("Property", properties);
     }
-    
+
     [Fact]
     public void HasAttribute_ReturnsCorrectAnswer()
     {
