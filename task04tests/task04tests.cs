@@ -21,11 +21,11 @@ public class SpaceshipTests
         Assert.True(fighter.Speed > cruiser.Speed);
     }
     [Fact]
-    public void Fighter_ShouldBeStrongerThanCruiser()
+    public void Cruiser_ShouldBeStrongerThanFighter()
     {
         var fighter = new Fighter();
         var cruiser = new Cruiser();
-        Assert.True(fighter.Speed > cruiser.Speed);
+        Assert.True(cruiser.FirePower > fighter.FirePower);
     }
     [Fact]
     public void Fighter_ShouldHaveCorrectStats()
