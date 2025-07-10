@@ -37,7 +37,7 @@ namespace task07
         [DisplayName("Тестовый метод")]
         public void TestMethod()
         {
-        
+
         }
 
     }
@@ -61,16 +61,16 @@ namespace task07
 
             foreach (var methodName in methodsWithDisplayName)
             {
-                Console.WriteLine($" {methodName}"); 
+                Console.WriteLine($" {methodName}");
             }
 
             Console.WriteLine("Свойства:");
             var propertiesWithDisplayName = type.GetProperties()
                 .Where(property => property.GetCustomAttribute<DisplayNameAttribute>() != null)
-                .Select(property => property.Name); 
+                .Select(property => property.Name);
             foreach (var propertyName in propertiesWithDisplayName)
             {
-                Console.WriteLine($" {propertyName}"); 
+                Console.WriteLine($" {propertyName}");
             }
         }
     }
