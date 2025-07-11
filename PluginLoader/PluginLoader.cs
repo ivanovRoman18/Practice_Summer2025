@@ -22,13 +22,13 @@ public class Loader
 
         foreach (var dll_path in Directory.GetFiles(_path, "*.dll"))
         {
-            try // Keep the assembly load in a try catch, since a corrupted dll can throw exceptions.
+            try 
             {
                 Assembly assembly = Assembly.LoadFrom(dll_path);
 
                 foreach (var type in assembly.GetTypes())
                 {
-                    if (type.GetCustomAttribute<PluginLoad>() != null && typeof(IPlugin).IsAssignableFrom(type))
+                    if (type.GetCustomAttribute<PluginLoadAttribute>() != null && typeof(IPlugin).IsAssignableFrom(type))
                     {
                         plugin_types.Add(type);
                     }
@@ -45,12 +45,12 @@ public class Loader
             {
                 Type = type,
                 Name = type.Name,
-                DependsOn = type.GetCustomAttribute<PluginLoad>()?.DependsOn ?? Array.Empty<string>()
+                DependsOn = type.GetCustomAttribute<PluginLoadAttribute>()?.DependsOn ?? Array.Empty<string>()
             })
             .ToList();
 
         var loaded = new HashSet<string>();
-        int loadedCount = 0; // Keep track of how many plugins we successfully loaded this iteration
+        int loadedCount = 0; 
 
         while (loaded.Count < plugins.Count)
         {
@@ -74,11 +74,10 @@ public class Loader
                 }
             }
 
-            // If we didn't load any plugins in this iteration, it means there's a circular dependency or a dependency that's not being met.
             if (loadedCount == 0 && loaded.Count < plugins.Count)
             {
                 Console.WriteLine("Circular dependency detected or dependency not met.  Aborting plugin loading.");
-                break; // Exit the while loop
+                break;
             }
         }
 
