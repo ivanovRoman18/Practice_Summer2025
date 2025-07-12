@@ -1,45 +1,75 @@
-namespace task11tests;
-
 using Xunit;
+using task11; // Используем пространство имен из основного проекта
 
-public class DynamicCalculatorTests
+public class CalculatorTests
 {
-    [Fact]
-    public void TestSum()
+    private ICalculator _calculator;
+
+    public CalculatorTests()
     {
-        dynamic calculator = DynamicCalculatorCreator.CreateCalculator();
-        Assert.Equal(8, calculator.Add(5, 3));
+        _calculator = DynamicCalculatorCreator.CreateCalculator();
     }
 
     [Fact]
-    public void TestMinus()
+    public void Add_ShouldReturnCorrectSum()
     {
-        dynamic calculator = DynamicCalculatorCreator.CreateCalculator();
-        Assert.Equal(2, calculator.Minus(5, 3));
+        int a = 5;
+        int b = 3;
+        int expected = 8;
+
+        int result = _calculator.Add(a, b);
+
+        Assert.Equal(expected, result);
     }
 
     [Fact]
-    public void TestMul()
+    public void Minus_ShouldReturnCorrectDifference()
     {
-        dynamic calculator = DynamicCalculatorCreator.CreateCalculator();
-        Assert.Equal(15, calculator.Mul(5, 3));
+        int a = 5;
+        int b = 3;
+        int expected = 2;
+
+        int result = _calculator.Minus(a, b);
+
+        Assert.Equal(expected, result);
     }
 
     [Fact]
-    public void TestDiv()
+    public void Mul_ShouldReturnCorrectMul()
     {
-        dynamic calculator = DynamicCalculatorCreator.CreateCalculator();
-        Assert.Equal(2, calculator.Div(6, 3));
+        int a = 5;
+        int b = 3;
+        int expected = 15;
+
+ 
+        int result = _calculator.Mul(a, b);
+
+        Assert.Equal(expected, result);
     }
 
     [Fact]
-    public void TestClassStructure()
+    public void Div_ShouldReturnCorrectQuotient()
     {
-        dynamic calculator = DynamicCalculatorCreator.CreateCalculator();
+        // Arrange
+        int a = 6;
+        int b = 3;
+        int expected = 2;
 
-        Assert.Equal(8, calculator.Add(5, 3));
-        Assert.Equal(2, calculator.Minus(5, 3));
-        Assert.Equal(15, calculator.Mul(5, 3));
-        Assert.Equal(2, calculator.Div(6, 3));
+        // Act
+        int result = _calculator.Div(a, b);
+
+        // Assert
+        Assert.Equal(expected, result);
+    }
+
+    [Fact]
+    public void Div_ByZero_ShouldThrowDivideByZeroException()
+    {
+        int a = 1;
+        int b = 0;
+
+        var exception = Assert.Throws<DivideByZeroException>(() => _calculator.Div(a, b));
+        Assert.Contains("divide", exception.Message.ToLower());
     }
 }
+
